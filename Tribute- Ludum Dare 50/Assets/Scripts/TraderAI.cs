@@ -16,14 +16,10 @@ public class TraderAI : MonoBehaviour
     [SerializeField] bool checkingLedge = true;
     [SerializeField] bool checkingWall = true;
     [SerializeField] bool showingTrade = false;
-    [SerializeField] bool canTrade = true;
 
     [SerializeField] int movingTimer;
     [SerializeField] int waitTimer;
     [SerializeField] int tradeTimer;
-
-    Vector3 InitialPos;
-
 
     float direction = 1f;
     float speed;
@@ -44,13 +40,12 @@ public class TraderAI : MonoBehaviour
         speed = Random.Range(2f, 6f);
         movingTimer = Random.Range(30, 500);
         waitTimer = Random.Range(150, 300);
-
-        InitialPos = gameObject.transform.position;
-
     }
 
     private void FixedUpdate()
     {
+        if (GameManager.Instance.GamePaused) return;
+
         CheckAction();
         CheckLedge();
         CheckWall();
@@ -139,11 +134,6 @@ public class TraderAI : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawRay(groundCheckPosition, Vector2.down * groundCheckDistance);
         Gizmos.DrawRay(wallCheckPosition, heading * wallCheckDistance);
-    }
-
-    public void Respawn()
-    {
-        gameObject.transform.position = InitialPos;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

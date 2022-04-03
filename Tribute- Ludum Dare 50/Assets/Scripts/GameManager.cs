@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,10 +15,15 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI CountDownText;
     public Image ReqImage;
 
+    public DialogueTrigger NPC;
+
     public int DaysPassed = 0;
 
     private int countDownTimer;
-    private bool gameRunning = true;
+
+    public bool GamePaused = false;
+    public bool InDialogue = false;
+    private bool firstDay = true;
 
     public TraderAI[] Traders;
     public List<ItemData> Items = new List<ItemData>();
@@ -40,11 +46,15 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        NPC.TriggerDialogue();
         RestartDay();
+        firstDay = false;
     }
 
     private void FixedUpdate()
     {
+        if (Input.GetKeyDown(KeyCode.Escape) && !InDialogue) 
+            GamePaused = !GamePaused;
         IncTimer();
     }
 
@@ -54,6 +64,14 @@ public class GameManager : MonoBehaviour
         InitTraders();
         StartRound();
     }
+
+    IEnumerator GiveTask(ItemData itemData)
+    {
+        yield return new WaitForSeconds(1f);
+
+        NPC.TriggerTask(itemData);
+        GamePaused = false;
+    } 
 
     private void ClearItems()
     {
@@ -65,6 +83,8 @@ public class GameManager : MonoBehaviour
         ItemData chosenItem = tradeableItems[Random.Range(0, tradeableItems.Count)];
         Altar.GetComponent<Altar>().DesiredItem = chosenItem;
         ReqImage.sprite = chosenItem.ItemImage;
+
+        if (!firstDay) StartCoroutine(GiveTask(chosenItem));
     }
 
     private void InitTraders()
@@ -72,6 +92,10 @@ public class GameManager : MonoBehaviour
         foreach (GameObject obj in GameObject.FindGameObjectsWithTag("HUD")) Destroy(obj);
 
         Traders = FindObjectsOfType<TraderAI>();
+
+        GameObject[] spawns = GameObject.FindGameObjectsWithTag("SpawnPoint");
+
+        foreach (TraderAI trader in Traders) trader.gameObject.transform.position = spawns[Random.Range(0, spawns.Length)].transform.position;
 
         ItemData nextInput = Items[Random.Range(0, Items.Count)];
         Instantiate(nextInput.ItemGameObject, new Vector3(8.5f, 0.5f, 0f), Quaternion.identity);
@@ -105,7 +129,6 @@ public class GameManager : MonoBehaviour
             trader.TradeUI = tradeUI;
             trader.InputItem = nextInput.ItemName;
             trader.OutputObject = output.ItemGameObject;
-            trader.Respawn();
 
             nextInput = output;
             oldItems = newItems;
@@ -114,7 +137,8 @@ public class GameManager : MonoBehaviour
 
     private void IncTimer()
     {
-        if (gameRunning) countDownTimer -= 1;
+
+        if (!GamePaused && !InDialogue) countDownTimer -= 1;
         CountDownText.text = Mathf.Round(countDownTimer / 60).ToString();
         if (countDownTimer <= 0)
         {
@@ -124,8 +148,10 @@ public class GameManager : MonoBehaviour
 
     private void GameOver()
     {
-        gameRunning = false;
-        RestartDay();
+        GamePaused = true;
+        
+        // Bring up final score
+        // Transition to end scene? 
     }
 
     public void WinDay()

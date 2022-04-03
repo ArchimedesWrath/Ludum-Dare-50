@@ -28,6 +28,8 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (GameManager.Instance.GamePaused) return;
+
         GetInput();
         if (Item) Item.transform.position = gameObject.transform.position;
     }
