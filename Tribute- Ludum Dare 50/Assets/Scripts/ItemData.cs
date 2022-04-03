@@ -6,4 +6,5 @@ public class ItemData : ScriptableObject
 {
     public string ItemName;
     public Sprite ItemImage;
+    public GameObject ItemGameObject;
 }

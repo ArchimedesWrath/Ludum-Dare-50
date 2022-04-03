@@ -9,16 +9,21 @@ public class TraderAI : MonoBehaviour
 
     public GameObject TradeUI;
     public string InputItem;
+    public GameObject OutputObject;
     Vector2 tradeOffset = new Vector2(0f, 1.1f);
 
     [SerializeField] bool moving = true;
     [SerializeField] bool checkingLedge = true;
     [SerializeField] bool checkingWall = true;
     [SerializeField] bool showingTrade = false;
+    [SerializeField] bool canTrade = true;
 
     [SerializeField] int movingTimer;
     [SerializeField] int waitTimer;
     [SerializeField] int tradeTimer;
+
+    Vector3 InitialPos;
+
 
     float direction = 1f;
     float speed;
@@ -39,6 +44,9 @@ public class TraderAI : MonoBehaviour
         speed = Random.Range(2f, 6f);
         movingTimer = Random.Range(30, 500);
         waitTimer = Random.Range(150, 300);
+
+        InitialPos = gameObject.transform.position;
+
     }
 
     private void FixedUpdate()
@@ -46,6 +54,7 @@ public class TraderAI : MonoBehaviour
         CheckAction();
         CheckLedge();
         CheckWall();
+
 
         if (moving) rb2d.velocity = new Vector2(speed, rb2d.velocity.y);
 
@@ -60,6 +69,7 @@ public class TraderAI : MonoBehaviour
     {
         if (moving) movingTimer -= 1;
         if (!moving) waitTimer -= 1;
+        
         if (showingTrade) tradeTimer -= 1;
 
         if (tradeTimer <= 0) showingTrade = false;
@@ -118,11 +128,22 @@ public class TraderAI : MonoBehaviour
         transform.localScale = new Vector2(Mathf.Sign(speed), 1);
     }
 
+    private void MakeTrade(Item item)
+    {
+        Destroy(item.gameObject);
+        GameObject spawnedItem = Instantiate(OutputObject, transform.position, Quaternion.identity);
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawRay(groundCheckPosition, Vector2.down * groundCheckDistance);
         Gizmos.DrawRay(wallCheckPosition, heading * wallCheckDistance);
+    }
+
+    public void Respawn()
+    {
+        gameObject.transform.position = InitialPos;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -132,7 +153,7 @@ public class TraderAI : MonoBehaviour
             Item item = collision.gameObject.transform.parent.gameObject.GetComponent<Item>();
             if (item.Name == InputItem)
             {
-                Destroy(item.gameObject);
+                MakeTrade(item);
             }
         }
     }

@@ -9,6 +9,7 @@ TagManager:
   - Altar
   - Item
   - ItemTrigger
+  - HUD
   layers:
   - Default
   - TransparentFX
@@ -21,7 +22,7 @@ TagManager:
   - Trader
   - Item
   - ItemTrigger
-  - 
+  - Altar
   - 
   - 
   - 

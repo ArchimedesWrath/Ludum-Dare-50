@@ -26,6 +26,33 @@ TextureImporter:
   - first:
       213: -1394031852760079282
     second: sprite-sheel_7
+  - first:
+      213: -9132528931491957936
+    second: sprite-sheel_8
+  - first:
+      213: 4457096697969849492
+    second: sprite-sheel_9
+  - first:
+      213: -4867767014954811217
+    second: sprite-sheel_10
+  - first:
+      213: -1123189296117873414
+    second: sprite-sheel_11
+  - first:
+      213: 645653114351315574
+    second: sprite-sheel_12
+  - first:
+      213: 2633094878096622006
+    second: sprite-sheel_13
+  - first:
+      213: 5859716258123305621
+    second: sprite-sheel_14
+  - first:
+      213: -6236336792688997369
+    second: sprite-sheel_15
+  - first:
+      213: -1539219074769793298
+    second: sprite-sheel_16
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -223,8 +250,8 @@ TextureImporter:
       name: sprite-sheel_5
       rect:
         serializedVersion: 2
-        x: 32
-        y: 80
+        x: 0
+        y: 64
         width: 32
         height: 16
       alignment: 0
@@ -270,7 +297,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 2, y: 4, z: 2, w: 2}
       outline: []
       physicsShape: []
@@ -278,6 +305,195 @@ TextureImporter:
       bones: []
       spriteID: e44e7a27a6767ace0800000000000000
       internalID: -1394031852760079282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-sheel_8
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 96
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 053b171b25db24180800000000000000
+      internalID: -9132528931491957936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-sheel_9
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 96
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4943f0405d9cadd30800000000000000
+      internalID: 4457096697969849492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-sheel_10
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 96
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa04140c0b7327cb0800000000000000
+      internalID: -4867767014954811217
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-sheel_11
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 2, y: 2, z: 2, w: 2}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af48f5d3941a960f0800000000000000
+      internalID: -1123189296117873414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-sheel_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 80
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67ae8013612d5f800800000000000000
+      internalID: 645653114351315574
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-sheel_13
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 80
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b189d447d1aa8420800000000000000
+      internalID: 2633094878096622006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-sheel_14
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 80
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 592550204e4e15150800000000000000
+      internalID: 5859716258123305621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-sheel_15
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 80
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 70cc2148ab41479a0800000000000000
+      internalID: -6236336792688997369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-sheel_16
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 80
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eee47d8186893aae0800000000000000
+      internalID: -1539219074769793298
       vertices: []
       indices: 
       edges: []
