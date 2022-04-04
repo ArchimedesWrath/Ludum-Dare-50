@@ -8,10 +8,13 @@ public class PlayerController : MonoBehaviour
     float jumpHeight = 20f;
     float throwForce = 4f;
     bool facingRight = true;
+    bool grounded = false;
+    float input;
+    float vertInput;
 
     // Raycast for ground check
     Vector2 direction = Vector2.down;
-    float distance = 1.0f;
+    float distance = 0.75f;
     RaycastHit2D groundHit;
     [SerializeField] private LayerMask groundLayer;
 
@@ -20,40 +23,66 @@ public class PlayerController : MonoBehaviour
 
     public GameObject Item;
 
+    Animator animator;
+    string currentState;
+
+    // Animation States
+    const string PLAYER_IDLE = "player_idle";
+    const string PLAYER_RUN = "player_run";
+    const string PLAYER_JUMP = "player_jump";
+    const string PLAYER_FALL = "player_fall";
+
     private void Start()
     {
         rb2d = gameObject.GetComponent<Rigidbody2D>();
         playerSprite = gameObject.GetComponent<SpriteRenderer>();
+        animator = gameObject.GetComponent<Animator>();
     }
 
     private void Update()
     {
+        grounded = IsGrounded();
         if (GameManager.Instance.GamePaused) return;
 
         GetInput();
+
         if (Item) Item.transform.position = gameObject.transform.position;
     }
 
-    private void GetInput()
+    private void FixedUpdate()
     {
-        float input = Input.GetAxisRaw("Horizontal");
-
         if (input < 0)
         {
             rb2d.velocity = new Vector2(input * speed, rb2d.velocity.y);
             if (facingRight) Flip();
-        } else if (input > 0)
+
+        }
+        else if (input > 0)
         {
             rb2d.velocity = new Vector2(input * speed, rb2d.velocity.y);
             if (!facingRight) Flip();
-        } else if (input == 0)
+        }
+        else if (input == 0)
         {
             rb2d.velocity = new Vector2(0f, rb2d.velocity.y);
         }
+        
+        if (vertInput > 0) Jump();
 
-        if (Input.GetAxisRaw("Vertical") > 0) Jump();
+        if (input != 0 && vertInput == 0 && grounded) ChangeAnimationState(PLAYER_RUN);
+        if (input == 0 && vertInput == 0 && grounded) ChangeAnimationState(PLAYER_IDLE);
+        if (rb2d.velocity.y > 0.05f && !grounded) ChangeAnimationState(PLAYER_JUMP);
+        if (rb2d.velocity.y < -0.05f && !grounded) ChangeAnimationState(PLAYER_FALL);
+    }
+
+    private void GetInput()
+    {
+        input = Input.GetAxisRaw("Horizontal");
+        vertInput = Input.GetAxisRaw("Vertical");
+
         if (Input.GetKeyDown(KeyCode.E)) ThrowItem();
     }
+
 
     private bool IsGrounded()
     {
@@ -67,10 +96,13 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        if (!IsGrounded())
+        if (!grounded)
             return;
         else
+        {
             rb2d.velocity = new Vector2(rb2d.velocity.x, jumpHeight);
+        }
+            
     }
 
     private void Flip()
@@ -102,5 +134,16 @@ public class PlayerController : MonoBehaviour
         {
             if(!Item) PickupItem(collision.gameObject.transform.parent.gameObject);
         }
+    }
+
+    private void ChangeAnimationState(string newState)
+    {
+        // stop animation from interrupting itself
+        if (currentState == newState) return;
+        
+        // play the default state
+        animator.Play(newState);
+
+        currentState = newState;
     }
 }

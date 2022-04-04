@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class TraderAI : MonoBehaviour
 {
     private Rigidbody2D rb2d;
+    public string Id;
 
     public GameObject TradeUI;
     public string InputItem;
@@ -34,12 +32,21 @@ public class TraderAI : MonoBehaviour
     float wallCheckDistance = 0.5f;
     Vector2 heading;
 
+    Animator animator;
+    string currentState;
+    string NPC_IDLE;
+    string NPC_WALK;
+
     private void Start()
     {
         rb2d = gameObject.GetComponent<Rigidbody2D>();
+        animator = gameObject.GetComponent<Animator>();
         speed = Random.Range(2f, 6f);
         movingTimer = Random.Range(30, 500);
         waitTimer = Random.Range(150, 300);
+
+        NPC_IDLE = Id + "_idle";
+        NPC_WALK = Id + "_walk";
     }
 
     private void FixedUpdate()
@@ -51,7 +58,14 @@ public class TraderAI : MonoBehaviour
         CheckWall();
 
 
-        if (moving) rb2d.velocity = new Vector2(speed, rb2d.velocity.y);
+        if (moving)
+        {
+            rb2d.velocity = new Vector2(speed, rb2d.velocity.y);
+            ChangeAnimationState(NPC_WALK);
+        } else
+        {
+            ChangeAnimationState(NPC_IDLE);
+        }
 
         if (TradeUI)
         {
@@ -146,5 +160,15 @@ public class TraderAI : MonoBehaviour
                 MakeTrade(item);
             }
         }
+    }
+    private void ChangeAnimationState(string newState)
+    {
+        // stop animation from interrupting itself
+        if (currentState == newState) return;
+
+        // play the default state
+        animator.Play(newState);
+
+        currentState = newState;
     }
 }

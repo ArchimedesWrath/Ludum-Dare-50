@@ -11,6 +11,7 @@ TagManager:
   - ItemTrigger
   - HUD
   - SpawnPoint
+  - ItemSpawn
   layers:
   - Default
   - TransparentFX
@@ -47,6 +48,15 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 3853743
+    locked: 0
+  - name: Clouds
+    uniqueID: 3988334999
+    locked: 0
+  - name: Map
+    uniqueID: 3663077159
     locked: 0
   - name: Altar
     uniqueID: 2127786761
